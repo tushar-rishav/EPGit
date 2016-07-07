@@ -1,0 +1,400 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>coala | Git</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+		<link rel="stylesheet" href="css/index.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+		<link rel="stylesheet"
+			  href="lib/font-awesome/css/font-awesome.min.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<header style="z-index:100;position:absolute;top:10px;left:10px;text-align:center;">
+			<img src="img/coala.png" style="max-width:50px;max-height:50px;padding:2px;">
+			<p><a style="color:#c7da99;float:center; text-decoration:none;" href="https://github.com/coala-analyzer/">coala</a></p>
+		</header>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<section >
+						<h2>Introduction to
+							<i class="fa fa-git" style="color:#f05033;"></i></h2>
+					</section>
+					<section>
+						<h2 style="color:skyblue;">Who am I?</h2>
+						<hr/>
+						<span style="color:skyblue;">@tushar_rishav</span>
+
+						<ul>
+							<li>GSoC'16 student and a contributor to <span style="color:pink;" >coala </span> - a static code analysis tool.</li>
+							<li>A junior year, pursuing B.Tech from <br/>the <span style="color:pink;" >National Institute of Technology, Trichy, India.</span></li>
+							<li>More at <span style="color:skyblue;">www.gtushar.co</span></li>
+						</ul>
+					</section>
+					<section>
+						<h2>Let's get started</h2>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2 style="color:skyblue;">Version Control Systems</h2>
+					</section>
+					<section><h3>What?</h3>
+						<ul>
+							<li>A software tool that <i style="color:pink;">manages changes</i> to source code over time.</li>
+						</ul>
+					</section>
+					<section><h3>How?</h3>
+						<ul>
+							<li>Keeps track of every changes using simple database and hence the changes can be easily reverted if required. <br/>So don't panic if your colleague messed up!</li>
+						</ul>
+					</section>
+					<section><h3>Why?</h3>
+						<ul>
+							<li>Enables collaborative programming with minimum disruptions.</li>
+							<li>Developers can work on unrelated features or changes and at the end get changes merged back together.</li>
+						</ul>
+					</section>
+					<section>
+						<h2><span style="color:skyblue;">Centralised</span> Vs <span style="color:pink;">Distributed</span> VCS</h2>
+					</section>
+					<section><h2 style="color:skyblue;">Centralised VCS</h2>
+						<hr/>
+						<img src="img/cvcs.png" style="max-width:500px;max-height:500px;display:inline;" />
+
+						<ul style="display:inline;"><li>A single server that contains all the versioned files, and a number of clients that check out files from that central place. Eg: Subversion, and Perforce</ul></li>
+					</section>
+					<section>
+						<h2>Major <span style="color:#f05033;">Drawback</span></h2><hr/>
+						<ul>
+							<li><b style="color:skyblue;">Temporary failure</b>: Being centralised, if the server goes down for certain period of time, then nobody can collaborate at all.</li>
+							<li><b style="color:skyblue;">Permanent failure</b>: If proper backups haven't been kept and the central database becomes corrupt, then we lose the entire history of the project.</li>
+						</ul>
+						<p>Having the entire history of the project in a <span style="color:#f05033;">single place</span>, we <span style="color:#f05033";>risk losing everything.</span></p>
+					</section>
+					<section><h2 style="color:pink;">Distributed VCS</h2><hr/>
+						<img src="img/dvcs.png" style="max-width:500px;max-height:500px;display:inline;" />
+						<ul><li>Developers fully mirror the repository.</ul></li></ul>
+					</section>
+					<section>
+						<h2 style="color:pink;">Distributed VCS</h2><hr/>
+						<ul style="display:inline;">
+							<li>Every clone is really a full backup of all the data.</li>
+							<li>If the server is down or corrupted, then any of the client repositories can be copied back up to the server to restore it.</li>
+							<li>Some examples are Mercurial, Git etc.</li>
+						</ul>
+					</section>
+					<section data-background-image="img/linus.jpg"><h2><i style="color:#f05033;"
+						class="fa fa-git" ></i></h2>
+						<p style="font:10px;">Created by <span style="color:pink;">Linus Torvalds</span> and<br/> the Linux development community.</p>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2 style="color:skyblue;">Fundamentals</h2><hr/>
+						<img src="img/snapshots.png" style="background:white;max-height:200px;" />
+						<ul>
+							<li>Stores data as a set of snapshots of a miniature file systems.</li>
+							<li>Nearly every operation is local. One can work offline and requires network connection while pushing/fetching the changes to/from the remote server only.</li>
+						</ul>
+					</section>
+					<section><h2 style="color:skyblue;">Fundamentals</h2><hr/>
+						<h3 style="color:pink;">Workflow</h3>
+						<img src="img/workflow.png" style="background:white;max-height:300px;" />
+						<ul class="inline">
+							<li> 1. <span style="color:#f44d27;">Working Area</span></li>
+							<li> 2. <span style="color:#00909a;">Staging Area</span></li>
+							<li> 3. <span style="color:#efefe7;">Committed Area</span></li>
+						</ul>
+					</section>
+					<section>
+						<h2 style="color:skyblue;">Fundamentals</h2><hr/>
+						<h3 style="color:pink;">Workflow</h3>
+						<ul>
+							<li><span style="color:#f44d27;">Working Area:<br/></span>
+								Have changed the file but have not committed it to your database yet.
+							</li>
+							<li><span style="color:#00909a;">Staging Area:<br/></span>
+								Have marked a modified file in its current version to go into your next commit snapshot.
+							</li>
+							<li><span style="color:grey;">Committed Area:<br/></span>
+								The data is safely stored in your local database.
+							</li>
+						</ul>
+
+					</section>
+					<section>
+						<span style="color:green;">~/git></span> commands
+					</section>
+				</section>
+
+				<section>
+					<section data-markdown >
+						<script type="text/template">
+							Git Commands
+							***
+							git configs
+							```sh
+							$ git help	# Your git manual page.
+							$ git config --global user.name "Tushar Gautam"
+							$ git config --global user.email tushar.rishav@gmail.com
+							```
+
+							* Important as every git commit uses this information.
+							* Run without `--global` to override for a particular project.
+
+							Default text editor for git. In my case *vim*
+
+							```sh
+							$ git config --global core.editor vim
+							```
+							See complete list
+							```sh
+							$ git config --list
+							```
+						</script>
+					</section>
+
+					<section data-markdown>
+						<script type="text/template">
+						Git Commands
+						***
+						* Inititalise a repository in an existing directory.
+						```sh
+						git init
+						```
+						* Cloning an existing repository.
+
+						```sh
+						git clone <repo-url> [<target-directory>
+						# creates a directory called "coala".
+						git clone https://github.com/coala-analyzer/coala.git
+						# creates a directory called "my-coala-html"
+						git clone https://github.com/coala-analyzer/coala.git my-coala-html
+						```
+
+						</script>
+					</section>
+					<section>
+						<h3>File Status</h3><hr/>
+						<img src="img/lifecycle.png"
+						style="background:white;max-height:300px;"/>
+						<ul>
+							<li><span style="color:#00909a;">Tracked</span>: files that were in the last snapshot; they can be unmodified, modified, or staged. </li>
+							<li><span style="color:#8f8981;">Untracked</span>: files in your working directory that were not in your last snapshot and are not in your staging area. </li>
+						</ul>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							File status
+							***
+							```sh
+							$ git add <file-name> # Add `file-name` to staging area.
+							$ git status # check status for files.
+							$ git status -s # same as above but less verbose.
+							```
+
+							* If we modify any file in staging area, we need to `add` it again otherwise Git stages a file exactly as it is when you run the git add command.
+							* `.gitignore` can be used to avoid Git to automatically add or even show you as being untracked.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							File status
+							***
+							```sh
+							$ git diff # To see what you’ve changed but not yet staged,
+							$ git diff --staged
+							$ git diff --cached	# same as above
+							# To see what have been staged that will go into next commit,
+							# compares the staged changes to last commit.
+							```
+
+							* If we modify any file in staging area, we need to `add` it again otherwise Git stages a file exactly as it is when you run the git add command.
+							* `.gitignore` can be used to avoid Git to automatically add or even show you as being untracked.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Git Commit
+							***
+							```sh
+							$ git commit # Opens default editor with output from `git status`
+							$ git commit -v # Similar but displays `diff` for the changes.
+							$ git commit -m "commit message" # Inline.
+							$ git commit -am "commit message"
+							# Skip staging area and commit all changed files. Careful!
+							$ git rm <file> # remove `file` from staging and working area.
+							$ git rm --cached <file> # remove from staging area only.
+							```
+
+							* Commits the staged snapshot to the project history. Committed snapshots can be thought of as “safe” versions of a project—Git will never change them unless you explicity ask it to (covered later).
+							* Every time a commit is performed, we’re recording a snapshot of the project that we can revert to or compare to later.
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Git Log or History
+							***
+							```sh
+							$ git log
+							# Lists all commits with most recent commits show up first.
+							$ git log -p
+							# Shows diffs introduced with each commit.
+							$ git log -p -3 # Show first 3 entries only.
+							$ git log --oneline # Less verbose.
+							$ git log --graph --oneline.
+							# Shows graphical structure for branch and merge history.
+							$ git log --help # for more options.
+							```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Revert changes
+							***
+							```sh
+							$ git commit --amend
+							# Change the last commit message.
+							$ git checkout -- <file>
+							# Drop the changes for `file`. Careful!							```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Remote
+							***
+							* Remote repositories are versions of your project that are hosted on the Internet or network somewhere.
+
+							```sh
+							$ git remote -v
+							# List all remotes with their urls.
+							$ git remote add <name|alias> <url> # add remote.
+							$ git remote rename <old-name> <new-name> # rename remote.
+							$ git remote rm <name> # remove remote.
+							$ git fetch <remote-name> # fetch from remote.
+							# ^ Only downloads the data and not merge or modifies.
+							$ git merge # merge the changes.
+							$ git pull  # fetch + merge
+							$ git push <remote-name> <branch-name> # use `-f` to force push.
+
+							```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Workflow
+							***
+							1. Add remote.
+							2. Create branch.
+							3. Pull updates.
+							4. Make changes.
+							5. Add to staging area and commit.
+							6. Fetch from remote and rebase.
+							7. Push or force push.
+
+							We have talked about all except 2, 6 and 7.
+							```sh
+							$ git fetch <remote-name> # Fetch latest updates.
+							$ git rebase -i <remote/branch-name> # Discussed next.
+							```
+						</script>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Branching
+							***
+
+							```sh
+							$ git branch # display branch
+							$ git branch -a # all branch
+							$ git branch <new-branch> # create a new branch.
+							$ git checkout <new-branch> # Checkout to new branch.
+							$ git checkout -b <other-new-branch> # Combines above two.
+							$ git checkout -D <brnach-name>
+							# Force delete branch with unmerged changes.
+							```
+						</script>
+					</section>
+					<section>
+							<img src="img/merge.svg" style="background-color:white;max-height:250px;max-width:400px;display:inline;" />
+							<img src="img/rebase.svg" style="background-color:white;max-height:250px;max-width:400px;display:inline;">
+							<p>Merge</p>
+							<ul>
+							<li>The existing branches are not changed in any way.</li>
+							<li> Irrelevant merge commit.</li>
+
+							<li>Rebase, Re-writes the project history by creating new 	commits.</li>
+							</ul>
+							<pre>
+	$ git merge <master> <feature>
+	# merge changes from feature to master
+	$ git rebase <branch>
+	$ git rebase -i <branch> # interactive rebase.
+							</pre>
+					</section>
+					<!-- <section data-markdown>
+						<script type="text/template">
+							Reflog
+							***
+
+							```sh
+							$ git reflog
+							```
+						</script>
+					</section> -->
+					<section>
+						<h2>Reference</h2>
+						<ul>
+							<li><a href="https://git-scm.com/s">Git Books - Scott Chacon</a></li>
+							<li>
+								<a href="https://www.atlassian.com/git/tutorials/">Atlassian Git.</a>
+							</li>
+					</section>
+					<section>
+						<h2>Thank you!</h2>
+						<p>Please provide feedback at <a href="http://tinyurl.com/gitFeedback">http://tinyurl.com/gitFeedback</a>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				history: true,
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+			Reveal.configure({ slideNumber: true });
+		</script>
+	</body>
+</html>
