@@ -25,31 +25,30 @@
 		</script>
 	</head>
 	<body>
-		<header style="z-index:100;position:absolute;top:10px;left:10px;text-align:center;">
-			<img src="img/coala.png" style="max-width:50px;max-height:50px;padding:2px;">
-			<p><a style="color:#c7da99;float:center; text-decoration:none;" href="https://github.com/coala-analyzer/">coala</a></p>
-		</header>
 		<div class="reveal">
 			<div class="slides">
 
 				<section>
 					<section >
-						<h2>Introduction to
-							<i class="fa fa-git" style="color:#f05033;"></i></h2>
+						<h2>Guide to make a real contribution to an open source project</h2>
 					</section>
 					<section>
+						<header style="z-index:100;position:absolute;text-align:center;top:0px;left:0px;">
+							<img src="img/coala.png" style="border:none;background:transparent;max-width:100px;max-height:75px;padding:0px;">
+						</header>
 						<h2 style="color:skyblue;">Who am I?</h2>
 						<hr/>
 						<span style="color:skyblue;">@tushar_rishav</span>
-
 						<ul>
-							<li>GSoC'16 student and a contributor to <span style="color:pink;" >coala </span> - a static code analysis tool.</li>
-							<li>A junior year, pursuing B.Tech from <br/>the <span style="color:pink;" >National Institute of Technology, Trichy, India.</span></li>
+							<li>GSoC'16 student contributing to <span style="color:pink;" >coala </span> - a static code analysis tool, under <span style="color:pink;">Python Software Foundation</span>.</li>
+							<li>A senior year, pursuing B.Tech from <br/>the <span style="color:pink;" >National Institute of Technology, Trichy, India.</span></li>
 							<li>More at <span style="color:skyblue;">www.gtushar.co</span></li>
 						</ul>
 					</section>
 					<section>
 						<h2>Let's get started</h2>
+						<a style="color:skyblue;" href="http://tinyurl.com/epworkshop2016">http://tinyurl.com/epworkshop2016</a>
+						<a style="color:skyblue;  href="http://tinyurl.com/epwgist">http://tinyurl.com/epwgist</a>
 					</section>
 				</section>
 
@@ -69,7 +68,7 @@
 					</section>
 					<section><h3>Why?</h3>
 						<ul>
-							<li>Enables collaborative programming with minimum disruptions.</li>
+							<li>Enables collaborative programming (we will do shortly) with minimum disruptions.</li>
 							<li>Developers can work on unrelated features or changes and at the end get changes merged back together.</li>
 						</ul>
 					</section>
@@ -80,7 +79,7 @@
 						<hr/>
 						<img src="img/cvcs.png" style="max-width:500px;max-height:500px;display:inline;" />
 
-						<ul style="display:inline;"><li>A single server that contains all the versioned files, and a number of clients that check out files from that central place. Eg: Subversion, and Perforce</ul></li>
+						<ul style="display:inline;"><li>A single server that contains all the versioned files, and a number of clients that check out working copy from that central place. Eg: Subversion.</ul></li>
 					</section>
 					<section>
 						<h2>Major <span style="color:#f05033;">Drawback</span></h2><hr/>
@@ -99,7 +98,7 @@
 						<ul style="display:inline;">
 							<li>Every clone is really a full backup of all the data.</li>
 							<li>If the server is down or corrupted, then any of the client repositories can be copied back up to the server to restore it.</li>
-							<li>Some examples are Mercurial, Git etc.</li>
+							<li>Examples are Mercurial and Git.</li>
 						</ul>
 					</section>
 					<section data-background-image="img/linus.jpg"><h2><i style="color:#f05033;"
@@ -178,9 +177,11 @@
 						<script type="text/template">
 						Git Commands
 						***
-						* Inititalise a repository in an existing directory.
+						* Inititalise a repository in a given directory.
 						```sh
-						git init
+						git init <directory>
+						# leaving `directory` will initialis a repo
+						# in the current directory.
 						```
 						* Cloning an existing repository.
 
@@ -188,8 +189,8 @@
 						git clone <repo-url> [<target-directory>
 						# creates a directory called "coala".
 						git clone https://github.com/coala-analyzer/coala.git
-						# creates a directory called "my-coala-html"
-						git clone https://github.com/coala-analyzer/coala.git my-coala-html
+						# creates a directory called "my-directory"
+						git clone https://github.com/coala-analyzer/coala.git my-directory
 						```
 
 						</script>
@@ -242,9 +243,13 @@
 							$ git commit -v # Similar but displays `diff` for the changes.
 							$ git commit -m "commit message" # Inline.
 							$ git commit -am "commit message"
+							$ git show <commit_hash>
+							# default is recent commit.
 							# Skip staging area and commit all changed files. Careful!
-							$ git rm <file> # remove `file` from staging and working area.
-							$ git rm --cached <file> # remove from staging area only.
+							$ git rm <file>
+							# remove `file` from staging area and the filesystem.
+							$ git rm --cached <file>
+							# remove from staging area only.
 							```
 
 							* Commits the staged snapshot to the project history. Committed snapshots can be thought of as “safe” versions of a project—Git will never change them unless you explicity ask it to (covered later).
@@ -270,11 +275,13 @@
 					</section>
 					<section data-markdown>
 						<script type="text/template">
-							Revert changes
+							Make changes
 							***
 							```sh
 							$ git commit --amend
 							# Change the last commit message.
+							$ git checkout <commit_hash>
+							# checkout to the repo state wrt to the commit.
 							$ git checkout -- <file>
 							# Drop the changes for `file`. Careful!							```
 						</script>
@@ -284,12 +291,15 @@
 							Remote
 							***
 							* Remote repositories are versions of your project that are hosted on the Internet or network somewhere.
+							* Saved in **.git/config** file.
 
 							```sh
 							$ git remote -v
 							# List all remotes with their urls.
-							$ git remote add <name|alias> <url> # add remote.
+							$ git remote add <name | alias> <url> # add remote.
 							$ git remote rename <old-name> <new-name> # rename remote.
+							$ git remote set-url <name> <url>
+							# change the url for a remote.
 							$ git remote rm <name> # remove remote.
 							$ git fetch <remote-name> # fetch from remote.
 							# ^ Only downloads the data and not merge or modifies.
@@ -306,16 +316,17 @@
 							***
 							1. Add remote.
 							2. Create branch.
-							3. Pull updates.
-							4. Make changes.
-							5. Add to staging area and commit.
-							6. Fetch from remote and rebase.
-							7. Push or force push.
+							3. Add/Make changes and commit.
+							4. Fetch from remote and rebase.
+							5. Push or force push.
+							6. Create a pull request.
 
-							We have talked about all except 2, 6 and 7.
+							We have talked about all except 6 and 7.
 							```sh
-							$ git fetch <remote-name> # Fetch latest updates.
-							$ git rebase -i <remote/branch-name> # Discussed next.
+							$ git fetch <remote-name>
+							$ git rebase -i <remote/branch-name>
+							$ git request-pull [-p] <start> <url> [<end>]
+							# Use git request-pull and a mailing list. eg. Linux kernel.
 							```
 						</script>
 					</section>
@@ -338,12 +349,9 @@
 					<section>
 							<img src="img/merge.svg" style="background-color:white;max-height:250px;max-width:400px;display:inline;" />
 							<img src="img/rebase.svg" style="background-color:white;max-height:250px;max-width:400px;display:inline;">
-							<p>Merge</p>
 							<ul>
-							<li>The existing branches are not changed in any way.</li>
-							<li> Irrelevant merge commit.</li>
-
-							<li>Rebase, Re-writes the project history by creating new 	commits.</li>
+							<li> Merge: Adds a merge commit.</li>
+							<li>Rebase: Re-writes the project history by creating new commits. It adds the local commits on top of the </li>
 							</ul>
 							<pre>
 	$ git merge <master> <feature>
@@ -352,27 +360,28 @@
 	$ git rebase -i <branch> # interactive rebase.
 							</pre>
 					</section>
-					<!-- <section data-markdown>
+					<section data-markdown>
 						<script type="text/template">
-							Reflog
+							Cherry-pick
 							***
 
 							```sh
-							$ git reflog
+							$ git cherry-pick <commit_hash>
+							$ git revert
+							$ git reset HEAD
+							# HEAD means current commit
+							$ git reset --hard HEAD
+							# Move branch pointer to certain commit state
 							```
 						</script>
-					</section> -->
+					</section>
 					<section>
 						<h2>Reference</h2>
 						<ul>
 							<li><a href="https://git-scm.com/s">Git Books - Scott Chacon</a></li>
-							<li>
-								<a href="https://www.atlassian.com/git/tutorials/">Atlassian Git.</a>
-							</li>
 					</section>
 					<section>
-						<h2>Thank you!</h2>
-						<p>Please provide feedback at <a href="http://tinyurl.com/gitFeedback">http://tinyurl.com/gitFeedback</a>
+						<p>Let's start the contribution process :)</p>
 					</section>
 				</section>
 			</div>
